@@ -4,18 +4,38 @@
     <title>IdeaBox</title>
   </head>
   <body>
-    <h1>Ideas</h1>
+
+    <h2>Your ideas</h2>
+
+    <a href="/ideas/new">Create an idea</a>
+
     <table>
       <tr>
         <th>Title</th>
         <th>Description</th>
+        <th>Likes</th>
+        <th>Actions</th>
       </tr>
       <% ideas.each do |idea| %>
-        <tr>
-          <td><%= idea.title %></td>
-          <td><%= idea.description %></td>
+        <tr id="idea_<%= idea.id %>">
+          <td class="title"><%= idea.title %></td>
+          <td class="description"><%= idea.description %></td>
+          <td class="likes"><%= idea.rank %></td>
+          <td class="actions">
+            <a href="/ideas/<%= idea.id %>/edit">Edit</a>
+
+            <form action='/ideas/<%= idea.id %>' method='POST'>
+              <input type="hidden" name="_method" value="DELETE">
+              <input type='submit' value="Delete"/>
+            </form>
+
+            <form action='/ideas/<%= idea.id %>/like' method='POST' style="display: inline">
+              <input type='submit' value="+"/>
+            </form>
+          </td>
         </tr>
     <% end %>
     </table>
+
   </body>
 </html>

@@ -25,6 +25,10 @@ class IdeaStore
     all.select { |idea| idea.id == id }.first
   end
 
+  def self.find_by_title title
+    all.select { |idea| idea.title == title }.first 
+  end
+
   def self.delete id
     idea = IdeaStore.find(id)
     all.delete(idea)

@@ -59,4 +59,14 @@ describe IdeaStore do
     expect(IdeaStore.all.map(&:title).sort).to eq(["dinner", "song"])
   end
 
+  it "finds by title" do
+    IdeaStore.save Idea.new("dance", "like it's the 80s")
+    IdeaStore.save Idea.new("sleep", "like a baby")
+    IdeaStore.save Idea.new("dream", "like anything is possible")
+
+    idea = IdeaStore.find_by_title("sleep")
+
+    expect(idea.description).to eq("like a baby")
+  end
+
 end
