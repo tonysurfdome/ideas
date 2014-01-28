@@ -28,4 +28,15 @@ describe Idea do
     expect(ideas.sort).to eq([diet, drink, exercise])
   end
 
+  it "is new" do
+    idea = Idea.new('sleep', 'all day')
+    expect(idea.new?).to be_true
+  end
+
+  it "is old" do
+    idea = Idea.new('drink', 'lots of water')
+    idea.id = 1
+    expect(idea.new?).to be_false
+  end
+
 end
