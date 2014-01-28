@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>IdeaBox</title>
+  </head>
+  <body>
+    <h1>Ideas</h1>
+    <table>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+      </tr>
+      <% ideas.each do |idea| %>
+        <tr>
+          <td><%= idea.title %></td>
+          <td><%= idea.description %></td>
+        </tr>
+    <% end %>
+    </table>
+  </body>
+</html>
