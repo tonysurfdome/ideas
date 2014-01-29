@@ -1,4 +1,4 @@
-class Idea
+class Idea < ActiveRecord::Base
 
   attr_reader   :rank
   attr_accessor :id, :title, :description

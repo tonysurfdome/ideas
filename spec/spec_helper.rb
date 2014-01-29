@@ -1,2 +1,1 @@
-require 'bundler'
-Bundler.require(:default, :test)
+require './config/environment'
