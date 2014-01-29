@@ -1,13 +1,13 @@
 require 'bundler'
-Bundler.require :default, :test
+Bundler.require :default
 
 
-$:.unshift File.expand_path("./../../lib", __FILE__)
+$LOAD_PATH.unshift File.expand_path("./../../lib", __FILE__)
 
 require 'ideabox/db_config'
 
 # the quick-and-dirty way, part deux
-environment = ENV.fetch('RACK_ENV') { 'development' }
+environment = ENV.fetch('RACK_ENV') { :development }
 config = DBConfig.new(environment).options
 ActiveRecord::Base.establish_connection(config)
 require 'ideabox'
