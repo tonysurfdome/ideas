@@ -21,8 +21,8 @@ describe "managing ideas" do
 
   it "manages ideas" do
     # Create the idea
-    IdeaStore.save Idea.new("laundry", "buy more socks")
-    IdeaStore.save Idea.new("groceries", "macaroni, cheese")
+    IdeaStore.save Idea.new(title: "laundry", description: "buy more socks")
+    IdeaStore.save Idea.new(title: "groceries", description: "macaroni, cheese")
 
     visit '/ideas'
     expect(page).to have_content("buy more socks")
@@ -67,9 +67,9 @@ describe "managing ideas" do
   end
 
   it "allows ranking of ideas" do
-    id1 = IdeaStore.save Idea.new("fun", "ride horses")
-    id2 = IdeaStore.save Idea.new("vacation", "camping in the mountains")
-    id3 = IdeaStore.save Idea.new("write", "a book about being brave")
+    id1 = IdeaStore.save Idea.new(title: "fun", description: "ride horses")
+    id2 = IdeaStore.save Idea.new(title: "vacation", description: "camping in the mountains")
+    id3 = IdeaStore.save Idea.new(title: "write", description:"a book about being brave")
 
     visit '/ideas'
 

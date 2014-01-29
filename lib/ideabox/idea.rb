@@ -1,16 +1,15 @@
 class Idea < ActiveRecord::Base
 
-  attr_reader   :rank
   attr_accessor :id, :title, :description
 
-  def initialize title, description
-    @title       = title
-    @description = description
-    @rank       = 0
-  end
+  # def initialize title, description
+  #   @title       = title
+  #   @description = description
+  #   @rank       = 0
+  # end
 
   def like!
-    @rank += 1
+    self.rank += 1
   end
 
   def <=>(other)
@@ -21,4 +20,10 @@ class Idea < ActiveRecord::Base
     id.nil?
   end
 
+  def rank
+    @rank ||= 0
+  end
+
+  attr_writer   :rank
+  
 end

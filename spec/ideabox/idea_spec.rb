@@ -1,22 +1,33 @@
 require 'spec_helper'
+
+RSpec.configure do |c|
+  c.around(:each) do |example|
+    ActiveRecord::Base.connection.transaction do
+      example.run
+      raise ActiveRecord::Rollback
+    end
+  end
+end
+
 describe Idea do
+
   it "has basic attributes" do
-    idea = Idea.new("title", "description")
+    idea = Idea.new(title: "title", description: "description")
     expect(idea.title).to eq("title")
     expect(idea.description).to eq("description")
   end
 
   it "is likeable" do
-    idea = Idea.new("diet", "carrots and cucumbers")
+    idea = Idea.new(title: "diet",  description: "carrots and cucumbers")
     expect(idea.rank).to eq(0)
     idea.like!
     expect(idea.rank).to eq(1)
   end
 
   it "sorts by rank" do
-    diet = Idea.new("diet", "cabbage soup")
-    exercise = Idea.new("exercise", "long distance running")
-    drink = Idea.new("drink", "carrot smoothy")
+    diet = Idea.new(title: "diet", description: "cabbage soup")
+    exercise = Idea.new(title: "exercise", description: "long distance running")
+    drink = Idea.new(title: "drink", description: "carrot smoothy")
 
     exercise.like!
     exercise.like!
@@ -28,14 +39,21 @@ describe Idea do
   end
 
   it "is new" do
-    idea = Idea.new('sleep', 'all day')
+    idea = Idea.new(title: 'sleep', description:'all day')
     expect(idea.new?).to be_true
   end
 
   it "is old" do
-    idea = Idea.new('drink', 'lots of water')
+    idea = Idea.new(title: 'drink', description:'lots of water')
     idea.id = 1
     expect(idea.new?).to be_false
   end
+
+  it "is created in the DB" do
+    Idea.create(description:'A wonderful idea!')
+    expect(Idea.count).to eq 1   
+  end
+
+
 
 end

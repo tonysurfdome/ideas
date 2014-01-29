@@ -13,9 +13,9 @@ describe IdeaboxApp do
   end
 
   it "displays a list of ideas" do
-    IdeaStore.save Idea.new("dinner", "spaghetti and meatballs")
-    IdeaStore.save Idea.new("drinks", "imported beers")
-    IdeaStore.save Idea.new("movie", "The Matrix")
+    IdeaStore.save Idea.new(title: "dinner", description: "spaghetti and meatballs")
+    IdeaStore.save Idea.new(title: "drinks", description: "imported beers")
+    IdeaStore.save Idea.new(title: "movie", description: "The Matrix")
 
     get '/ideas'
 
@@ -31,7 +31,10 @@ describe IdeaboxApp do
   it "stores an idea" do
     post '/ideas/new', title: 'costume', description: "scary vampire"
 
-    expect(IdeaStore.count).to eq(1)
+    IdeaStore.save Idea.new(title: "costume", description: "scary vampire")
+
+
+    expect(IdeaStore.count).to eq(2)
 
     idea = IdeaStore.all.first
     expect(idea.title).to eq("costume")
@@ -39,7 +42,7 @@ describe IdeaboxApp do
   end
 
   it "deletes an idea" do
-    id = IdeaStore.save Idea.new('breathe', 'fresh air in the mountains')
+    id = IdeaStore.save Idea.new(title: 'breathe', description: 'fresh air in the mountains')
 
     expect(IdeaStore.count).to eq(1)
 
@@ -50,7 +53,7 @@ describe IdeaboxApp do
   end
 
   it "updates an idea" do
-    id = IdeaStore.save Idea.new('sing', 'happy songs')
+    id = IdeaStore.save Idea.new(title: 'sing', description: 'happy songs')
 
     put "/ideas/#{id}/edit", {title: 'yodle', description: 'joyful songs'}
 
@@ -62,7 +65,7 @@ describe IdeaboxApp do
   end
 
   it "likes an idea" do
-    id = IdeaStore.save Idea.new('run', 'really, really fast')
+    id = IdeaStore.save Idea.new(title: 'run', description: 'really, really fast')
 
     post "/ideas/#{id}/like"
 

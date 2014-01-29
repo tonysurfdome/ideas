@@ -6,7 +6,7 @@ describe IdeaStore do
   end
 
   it "saves and retrieves an idea" do
-    idea = Idea.new("celebrate", "with champagne")
+    idea = Idea.new(title: "celebrate", description: "with champagne")
     id = IdeaStore.save(idea)
 
     expect(IdeaStore.count).to eq(1)
@@ -17,13 +17,13 @@ describe IdeaStore do
   end
 
   it "has an id" do
-    idea = Idea.new("dinner", "beef stew")
+    idea = Idea.new(title:"dinner", description: "beef stew")
     idea.id = 1
     expect(idea.id).to eq(1)
   end
 
   it "updates an idea" do
-    idea = Idea.new("drink", "tomato juice")
+    idea = Idea.new(title: "drink", description: "tomato juice")
     id = IdeaStore.save(idea)
 
     idea = IdeaStore.find(id)
@@ -40,17 +40,18 @@ describe IdeaStore do
   end
 
   it "updates attributes" do
-    idea = Idea.new("drinks", "sparkly water")
+    idea = Idea.new(title:"drinks", description: "sparkly water")
     idea.title = "happy hour"
     idea.description = "mojitos"
+
     expect(idea.title).to eq("happy hour")
     expect(idea.description).to eq("mojitos")
   end
 
   it "deletes an idea" do
-    id1 = IdeaStore.save Idea.new("song", "99 bottles of beer")
-    id2 = IdeaStore.save Idea.new("gift", "micky mouse belt")
-    id3 = IdeaStore.save Idea.new("dinner", "cheeseburger with bacon and avocado")
+    id1 = IdeaStore.save Idea.new(title:"song", description:"99 bottles of beer")
+    id2 = IdeaStore.save Idea.new(title:"gift", description:"micky mouse belt")
+    id3 = IdeaStore.save Idea.new(title:"dinner", description:"cheeseburger with bacon and avocado")
 
     expect(IdeaStore.all.map(&:title).sort).to eq(["dinner", "gift", "song"])
     IdeaStore.delete(id2)
@@ -58,9 +59,9 @@ describe IdeaStore do
   end
 
   it "finds by title" do
-    IdeaStore.save Idea.new("dance", "like it's the 80s")
-    IdeaStore.save Idea.new("sleep", "like a baby")
-    IdeaStore.save Idea.new("dream", "like anything is possible")
+    IdeaStore.save Idea.new(title:"dance", description: "like it's the 80s")
+    IdeaStore.save Idea.new(title:"sleep", description: "like a baby")
+    IdeaStore.save Idea.new(title:"dream", description: "like anything is possible")
 
     idea = IdeaStore.find_by_title("sleep")
 
