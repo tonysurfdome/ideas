@@ -1,6 +1,4 @@
 require 'spec_helper'
-require 'sinatra/base'
-require 'rack/test'
 require 'app'
 
 describe IdeaboxApp do

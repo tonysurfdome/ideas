@@ -1,2 +1,2 @@
 require 'bundler'
-Bundler.require
+Bundler.require(:default, :test)
