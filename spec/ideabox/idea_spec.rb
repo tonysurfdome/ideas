@@ -1,5 +1,4 @@
-require './lib/ideabox/idea'
-
+require 'spec_helper'
 describe Idea do
   it "has basic attributes" do
     idea = Idea.new("title", "description")

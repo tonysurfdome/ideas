@@ -1,9 +1,10 @@
+require 'spec_helper'
 require 'sinatra/base'
 require 'rack/test'
 require 'capybara'
 require 'capybara/dsl'
 
-require './lib/app'
+require 'app'
 
 Capybara.app = IdeaboxApp
 

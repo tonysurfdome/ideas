@@ -1,6 +1,7 @@
 require 'bundler'
-Bundler.require(:default)
+Bundler.require
 
-require './lib/app'
+$LOAD_PATH.unshift File.expand_path('../lib', __FILE__)
+require 'app'
 
 run IdeaboxApp

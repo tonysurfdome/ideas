@@ -1,6 +1,4 @@
-require './lib/ideabox/idea'        # ~> LoadError: cannot load such file -- ./lib/ideabox/idea
-require './lib/ideabox/idea_store'
-
+require 'spec_helper'
 describe IdeaStore do
 
   before do

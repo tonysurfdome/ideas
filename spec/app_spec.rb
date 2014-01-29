@@ -1,6 +1,7 @@
+require 'spec_helper'
 require 'sinatra/base'
 require 'rack/test'
-require './lib/app'
+require 'app'
 
 describe IdeaboxApp do
   include Rack::Test::Methods
