@@ -83,12 +83,12 @@ describe "managing ideas" do
 
     within("#idea_#{id2}") do
       3.times do
-        click_button '+'
+        click_button 'Like!'
       end
     end
 
     within("#idea_#{id3}") do
-      click_button '+'
+      click_button 'Like!'
     end
 
     ideas = page.all('td.description')

@@ -1,0 +1,21 @@
+<form action="<%= action %>" method="POST">
+  
+  <p class="form_field">
+    <label for="title">Title</label>
+    <input type='text' id="title" name="title" value="<%= idea.title %>"/>
+  </p>
+  
+  <p class="form_field">
+    <label for="description">Description</label>
+    <textarea id="description" name="description"><%= idea.description %></textarea>
+  </p>
+
+  <input type="hidden" name="_method" value="<%= method %>">
+  
+  <span class="actions">
+    <span class="action_small">
+      <input type='submit' value='Save'/>
+    </span>
+  </span>
+
+</form>
