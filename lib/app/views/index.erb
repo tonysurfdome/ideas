@@ -1,41 +1,45 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>IdeaBox</title>
-  </head>
-  <body>
+<div id="header">
+  <div id="content">
+    <a href="#">Ideas</a>
+  </div>
+</div>
 
-    <h2>Your ideas</h2>
+<span class="big_button">
+  <a href="/ideas/new">Create an idea</a>
+</span>
 
-    <a href="/ideas/new">Create an idea</a>
-
-    <table>
-      <tr>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Likes</th>
-        <th>Actions</th>
-      </tr>
-      <% ideas.each do |idea| %>
-        <tr id="idea_<%= idea.id %>">
-          <td class="title"><%= idea.title %></td>
-          <td class="description"><%= idea.description %></td>
-          <td class="likes"><%= idea.rank %></td>
-          <td class="actions">
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Likes</th>
+    <th>Actions</th>
+  </tr>
+  <% ideas.each do |idea| %>
+    <tr id="idea_<%= idea.id %>">
+      <td class="title"><%= idea.title %></td>
+      <td class="description"><%= idea.description %></td>
+      <td class="likes"><%= idea.rank %></td>
+      <td class="actions">
+        <ul>
+          <li class="action_small">
             <a href="/ideas/<%= idea.id %>/edit">Edit</a>
+          </li>
 
+          <li class="action_small">
             <form action='/ideas/<%= idea.id %>' method='POST'>
               <input type="hidden" name="_method" value="DELETE">
               <input type='submit' value="Delete"/>
             </form>
+          </li>
 
+          <li class="action_small">
             <form action='/ideas/<%= idea.id %>/like' method='POST' style="display: inline">
-              <input type='submit' value="+"/>
+              <input type='submit' value="Like!"/>
             </form>
-          </td>
-        </tr>
-    <% end %>
-    </table>
-
-  </body>
-</html>
+          </li>
+        </ul>
+      </td>
+    </tr>
+<% end %>
+</table>

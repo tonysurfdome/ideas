@@ -1,16 +1,12 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>IdeaBox</title>
-  </head>
-  <body>
+<div id="header">
+  <div id="content">
+    <a href="/ideas">Ideas</a>
+    <a href="#">New</a>
+  </div>
+</div>
 
-    <h1>Add a new idea</h1>
-    <form action='/ideas/new' method='POST'>
-      <input type='text' name='title'/><br/>
-      <textarea name='description'></textarea><br/>
-      <input type='submit' value="Save"/>
-    </form>
-
-  </body>
-</html>
+<form action='/ideas/new' method='POST'>
+  <input type='text' name='title'/><br/>
+  <textarea name='description'></textarea><br/>
+  <input type='submit' value="Save"/>
+</form>
