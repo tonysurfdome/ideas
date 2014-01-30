@@ -1,2 +1,2 @@
-require './lib/ideabox/idea'
-require './lib/ideabox/idea_store'
+require 'ideabox/idea'
+require 'ideabox/db_config'

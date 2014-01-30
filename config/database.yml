@@ -1,0 +1,7 @@
+---
+test:
+  adapter:  sqlite3
+  database: db/ideabox_test
+development:
+  adapter:  sqlite3
+  database: db/ideabox_development

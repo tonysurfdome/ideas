@@ -1,4 +1,4 @@
-require './lib/ideabox'
+require 'ideabox'
 
 class IdeaboxApp < Sinatra::Base
   set :method_override, true
@@ -9,7 +9,7 @@ class IdeaboxApp < Sinatra::Base
   end
 
   get '/ideas' do
-    erb :index, locals: {ideas: IdeaStore.all.sort.reverse }
+    erb :index, locals: {ideas: Idea.all.sort.reverse }
   end
 
   get '/ideas/new' do
@@ -17,31 +17,33 @@ class IdeaboxApp < Sinatra::Base
   end
 
   delete '/ideas/:id' do |id|
-    IdeaStore.delete(id.to_i)
+    Idea.destroy(id.to_i)
     redirect '/ideas'
   end
 
   post '/ideas/new' do
-    idea = Idea.new(params[:title], params[:description])
-    IdeaStore.save(idea)
+    params.symbolize_keys!
+    Idea.create(title: params[:title], description: params[:description])
     redirect '/ideas'
   end
 
   get '/ideas/:id/edit' do |id|
-    idea = IdeaStore.find(id.to_i)
+    idea = Idea.find(id.to_i)
     erb :edit, locals: {idea: idea}
   end
 
   put '/ideas/:id/edit' do |id|
-    idea = IdeaStore.find(id.to_i)
-    idea.title = params[:title]
-    idea.description = params[:description]
-    IdeaStore.save(idea)
+    params.symbolize_keys!
+
+    Idea.find(id.to_i).update_attributes(
+      title: params[:title],
+      description: params[:description]
+    )
     redirect '/ideas'
   end
 
   post '/ideas/:id/like' do |id|
-    idea = IdeaStore.find(id.to_i)
+    idea = Idea.find(id.to_i)
     idea.like!
     redirect '/ideas'
   end

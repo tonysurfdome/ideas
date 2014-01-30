@@ -1,9 +1,10 @@
+require 'spec_helper'
 require 'sinatra/base'
 require 'rack/test'
 require 'capybara'
 require 'capybara/dsl'
 
-require './lib/app'
+require 'app'
 
 Capybara.app = IdeaboxApp
 
@@ -14,14 +15,14 @@ end
 describe "managing ideas" do
   include Capybara::DSL
 
-  after(:each) do
-    IdeaStore.reset!
-  end
+  # after(:each) do
+  #   IdeaStore.reset!
+  # end
 
   it "manages ideas" do
     # Create the idea
-    IdeaStore.save Idea.new("laundry", "buy more socks")
-    IdeaStore.save Idea.new("groceries", "macaroni, cheese")
+    Idea.create(title: "laundry", description: "buy more socks")
+    Idea.create(title: "groceries", description: "macaroni, cheese")
 
     visit '/ideas'
     expect(page).to have_content("buy more socks")
@@ -34,7 +35,7 @@ describe "managing ideas" do
     expect(page).to  have_content("chocolate chip cookies")
 
     # Edit the idea
-    idea = IdeaStore.find_by_title('eat')
+    idea = Idea.find_by_title('eat')
     within("#idea_#{idea.id}") do
       click_link 'Edit'
     end
@@ -66,19 +67,19 @@ describe "managing ideas" do
   end
 
   it "allows ranking of ideas" do
-    id1 = IdeaStore.save Idea.new("fun", "ride horses")
-    id2 = IdeaStore.save Idea.new("vacation", "camping in the mountains")
-    id3 = IdeaStore.save Idea.new("write", "a book about being brave")
+    id1 = Idea.create(title: "fun", description: "ride horses").id
+    id2 = Idea.create(title: "vacation", description: "camping in the mountains").id
+    id3 = Idea.create(title: "write", description:"a book about being brave").id
 
     visit '/ideas'
 
-    idea = IdeaStore.all[1]
+    idea = Idea.find(id2)
     idea.like!
     idea.like!
     idea.like!
     idea.like!
     idea.like!
-    IdeaStore.save(idea)
+    # IdeaStore.save(idea)
 
     within("#idea_#{id2}") do
       3.times do
