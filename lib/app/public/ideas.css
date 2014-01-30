@@ -52,7 +52,7 @@ table {
   border-collapse: collapse;
 }
 
-tr:first-child {
+.vertical tr:first-child {
   background-color: #DDD;
   border-radius: 5px;
 }

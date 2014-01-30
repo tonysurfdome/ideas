@@ -1,0 +1,36 @@
+<div id="header">
+  <div id="content">
+    <a href="/ideas">Ideas</a>
+    <a href="#"><%= idea.id %></a>
+  </div>
+</div>
+
+<table>
+  
+  <tr>
+    <th>Id</th>
+    <td class="id">#<%= idea.id %></td>
+  </tr>
+
+  <tr>
+    <th>Title</th>
+    <td class="title"><%= idea.title %></td>
+  </tr>
+
+  <tr>
+    <th>Description</th>
+    <td class="description"><%= idea.description %></td>
+  </tr>
+
+  <tr>
+    <th>Likes</th>
+    <td class="likes"><%= idea.rank %></td>
+  </tr>
+
+  <tr>
+    <th>Actions</th>
+      <td class="actions">
+        <%= erb :actions, locals: { idea: idea } %>
+      </td>
+  </tr>
+</table>

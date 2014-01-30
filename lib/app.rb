@@ -21,6 +21,11 @@ class IdeaboxApp < Sinatra::Base
     erb :edit, locals: {idea: idea}
   end
 
+  get '/ideas/:id' do |id|
+    idea = Idea.find(id.to_i)
+    erb :show, locals: {idea: idea}
+  end
+
   post '/ideas' do
     params.symbolize_keys!
     Idea.create(title: params[:title], description: params[:description])
