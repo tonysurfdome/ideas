@@ -30,7 +30,7 @@ describe IdeaboxApp do
   end
 
   it "stores an idea" do
-    post '/ideas/new', title: 'costume', description: "scary vampire"
+    post '/ideas', title: 'costume', description: "scary vampire"
     # IdeaStore.save Idea.new(title: "costume", description: "scary vampire")
 
     expect(Idea.count).to eq(1)
@@ -54,7 +54,7 @@ describe IdeaboxApp do
   it "updates an idea" do
     idea = Idea.create(title: 'sing', description: 'happy songs')
 
-    put "/ideas/#{idea.id}/edit", {title: 'yodle', description: 'joyful songs'}
+    put "/ideas/#{idea.id}", {title: 'yodle', description: 'joyful songs'}
 
     idea = Idea.find(idea)
 
