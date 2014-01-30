@@ -1,14 +1,5 @@
 require 'spec_helper'
 
-RSpec.configure do |c|
-  c.around(:each) do |example|
-    ActiveRecord::Base.connection.transaction do
-      example.run
-      raise ActiveRecord::Rollback
-    end
-  end
-end
-
 describe Idea do
 
   it "has basic attributes" do
@@ -44,8 +35,7 @@ describe Idea do
   end
 
   it "is old" do
-    idea = Idea.new(title: 'drink', description:'lots of water')
-    idea.id = 1
+    idea = Idea.create(title: 'drink', description:'lots of water')
     expect(idea.new?).to be_false
   end
 

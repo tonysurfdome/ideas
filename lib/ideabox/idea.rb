@@ -1,15 +1,7 @@
 class Idea < ActiveRecord::Base
 
-  attr_accessor :id, :title, :description
-
-  # def initialize title, description
-  #   @title       = title
-  #   @description = description
-  #   @rank       = 0
-  # end
-
   def like!
-    self.rank += 1
+    self.update_attribute(:likes, self.likes + 1)
   end
 
   def <=>(other)
@@ -17,13 +9,11 @@ class Idea < ActiveRecord::Base
   end
 
   def new?
-    id.nil?
+    self.new_record?
   end
 
   def rank
-    @rank ||= 0
+    self.likes
   end
-
-  attr_writer   :rank
   
 end

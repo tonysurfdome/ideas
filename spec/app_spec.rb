@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'app'
+require 'sinatra/base'
 
 describe IdeaboxApp do
   include Rack::Test::Methods
@@ -8,14 +9,14 @@ describe IdeaboxApp do
     IdeaboxApp
   end
 
-  after(:each) do
-    IdeaStore.reset!
-  end
+  # after(:each) do
+  #   IdeaStore.reset!
+  # end
 
   it "displays a list of ideas" do
-    IdeaStore.save Idea.new(title: "dinner", description: "spaghetti and meatballs")
-    IdeaStore.save Idea.new(title: "drinks", description: "imported beers")
-    IdeaStore.save Idea.new(title: "movie", description: "The Matrix")
+    Idea.create(title: "dinner", description: "spaghetti and meatballs")
+    Idea.create(title: "drinks", description: "imported beers")
+    Idea.create(title: "movie", description: "The Matrix")
 
     get '/ideas'
 
@@ -30,48 +31,47 @@ describe IdeaboxApp do
 
   it "stores an idea" do
     post '/ideas/new', title: 'costume', description: "scary vampire"
+    # IdeaStore.save Idea.new(title: "costume", description: "scary vampire")
 
-    IdeaStore.save Idea.new(title: "costume", description: "scary vampire")
+    expect(Idea.count).to eq(1)
 
-
-    expect(IdeaStore.count).to eq(2)
-
-    idea = IdeaStore.all.first
+    idea = Idea.first
     expect(idea.title).to eq("costume")
     expect(idea.description).to eq("scary vampire")
   end
 
   it "deletes an idea" do
-    id = IdeaStore.save Idea.new(title: 'breathe', description: 'fresh air in the mountains')
+    idea = Idea.create(title: 'breathe', description: 'fresh air in the mountains')
 
-    expect(IdeaStore.count).to eq(1)
+    expect(Idea.count).to eq(1)
 
-    delete "/ideas/#{id}"
+    delete "/ideas/#{idea.id}"
 
     expect(last_response.status).to eq(302)
-    expect(IdeaStore.count).to eq(0)
+    expect(Idea.count).to eq(0)
   end
 
   it "updates an idea" do
-    id = IdeaStore.save Idea.new(title: 'sing', description: 'happy songs')
+    idea = Idea.create(title: 'sing', description: 'happy songs')
 
-    put "/ideas/#{id}/edit", {title: 'yodle', description: 'joyful songs'}
+    put "/ideas/#{idea.id}/edit", {title: 'yodle', description: 'joyful songs'}
+
+    idea = Idea.find(idea)
 
     expect(last_response.status).to eq(302)
 
-    idea = IdeaStore.find(id)
     expect(idea.title).to eq('yodle')
     expect(idea.description).to eq('joyful songs')
   end
 
   it "likes an idea" do
-    id = IdeaStore.save Idea.new(title: 'run', description: 'really, really fast')
+    idea = Idea.create(title: 'run', description: 'really, really fast')
 
-    post "/ideas/#{id}/like"
+    post "/ideas/#{idea.id}/like"
 
     expect(last_response.status).to eq(302)
 
-    idea = IdeaStore.find(id)
+    idea = Idea.find(idea)
     expect(idea.rank).to eq(1)
   end
 

@@ -6,7 +6,7 @@ Bundler.require :default
 
 require 'config/environment'
 require 'puma'
-require 'api'
+require 'app'
 
 use ActiveRecord::ConnectionAdapters::ConnectionManagement
-run IdeaboxAPI
+run IdeaboxApp
