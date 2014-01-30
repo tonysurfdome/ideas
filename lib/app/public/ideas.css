@@ -41,6 +41,7 @@ body {
   border-radius: 5px;
   vertical-align: middle;
   text-align: center;
+  padding: 0 10px;
 }
 
 .action_big {
@@ -69,6 +70,23 @@ td, th {
 
 td {
   border-bottom: 1px solid #DDD;
+}
+
+label {
+  display: inline-block;
+  min-width: 100px;
+}
+
+label:after {
+  content: ":";
+}
+
+.form_field * {
+  vertical-align: top;
+}
+
+input[type='text'], textarea {
+  width: 200px;
 }
 
 .actions input[type='submit'], .actions a {

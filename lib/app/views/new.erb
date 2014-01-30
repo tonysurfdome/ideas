@@ -5,8 +5,8 @@
   </div>
 </div>
 
-<form action='/ideas/new' method='POST'>
-  <input type='text' name='title'/><br/>
-  <textarea name='description'></textarea><br/>
-  <input type='submit' value="Save"/>
-</form>
+<%= erb :form, locals: {
+  idea: Idea.new, 
+  method: "POST", 
+  action: "/ideas/new"
+} %>
