@@ -1,0 +1,22 @@
+<ul>
+  <li class="action_small">
+    <a href="/ideas/<%= idea.id %>">View</a>
+  </li>
+
+  <li class="action_small">
+    <a href="/ideas/<%= idea.id %>/edit">Edit</a>
+  </li>
+
+  <li class="action_small">
+    <form action='/ideas/<%= idea.id %>' method='POST'>
+      <input type="hidden" name="_method" value="DELETE">
+      <input type='submit' value="Delete"/>
+    </form>
+  </li>
+
+  <li class="action_small">
+    <form action='/ideas/<%= idea.id %>/like' method='POST' style="display: inline">
+      <input type='submit' value="Like!"/>
+    </form>
+  </li>
+</ul>

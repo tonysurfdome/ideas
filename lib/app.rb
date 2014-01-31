@@ -16,23 +16,28 @@ class IdeaboxApp < Sinatra::Base
     erb :new
   end
 
-  delete '/ideas/:id' do |id|
-    Idea.destroy(id.to_i)
-    redirect '/ideas'
-  end
-
-  post '/ideas/new' do
-    params.symbolize_keys!
-    Idea.create(title: params[:title], description: params[:description])
-    redirect '/ideas'
-  end
-
   get '/ideas/:id/edit' do |id|
     idea = Idea.find(id.to_i)
     erb :edit, locals: {idea: idea}
   end
 
-  put '/ideas/:id/edit' do |id|
+  get '/ideas/:id' do |id|
+    idea = Idea.find(id.to_i)
+    erb :show, locals: {idea: idea}
+  end
+
+  post '/ideas' do
+    params.symbolize_keys!
+    Idea.create(title: params[:title], description: params[:description])
+    redirect '/ideas'
+  end
+
+  delete '/ideas/:id' do |id|
+    Idea.destroy(id.to_i)
+    redirect '/ideas'
+  end
+
+  put '/ideas/:id' do |id|
     params.symbolize_keys!
 
     Idea.find(id.to_i).update_attributes(

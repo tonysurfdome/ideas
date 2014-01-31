@@ -1,7 +1,7 @@
 ---
 test:
   adapter:  sqlite3
-  database: db/ideabox_test
+  database: db/ideabox_test.sqlite3
 development:
   adapter:  sqlite3
-  database: db/ideabox_development
+  database: db/ideabox_development.sqlite3
